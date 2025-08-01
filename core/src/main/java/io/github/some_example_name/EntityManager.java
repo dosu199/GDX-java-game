@@ -12,7 +12,7 @@ public class EntityManager {
     public EntityManager() {
         this.entities = new ArrayList<>();
         this.player = new Player(100, 100);
-        this.enemy = new Enemy(100, 100);
+        this.enemy = new Enemy(600, 100);
         addEntity(this.player);
         addEntity(this.enemy);
     }
