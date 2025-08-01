@@ -1,43 +1,34 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player implements Entity {
-    private int posX;
-    private int posY;
-    private final Texture playerTexture;
+    private float posX;
+    private float posY;
+    private final int width;
+    private final int height;
+    private Texture playerTexture;
 
     public Player(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
-        this.playerTexture = new Texture("player.png");
+        this.width = 100;
+        this.height = 100;
     }
 
-    public void render() {
-
+    public Texture createTexture() {
+        this.playerTexture = new Texture(Gdx.files.internal("player.png"));
+        return this.playerTexture;
     }
+
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(playerTexture, posX, posY, width, height);
+    }
+
     public void update() {
 
-    }
-
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public Texture getPlayerTexture() {
-        return playerTexture;
     }
 }
