@@ -1,7 +1,8 @@
 package io.github.some_example_name;
 
-public interface Entity {
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-   void render();
+public interface Entity {
+   void draw(SpriteBatch batch);
    void update();
 }

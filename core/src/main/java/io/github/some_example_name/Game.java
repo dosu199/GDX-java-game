@@ -1,6 +1,5 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,19 +8,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import org.w3c.dom.Text;
 
-public class Game extends ApplicationAdapter {
+public class Game {
     private final Vector2 mousePosition = new Vector2();
     private FitViewport viewport;
     private SpriteBatch batch;
-    private Player player;
-    private Enemy enemy;
+    private Texture player;
+    private Texture enemy;
     private BitmapFont font;
-    private EntityManager entityMgr;
+    private EntityManager entityManager;
 
-    public Game() {
-        this.entityMgr = new EntityManager();
+
+    public void resize(int width, int height) {
+        // Resizing will screw up our logic
+        viewport.update(width, height, true);
     }
 
     public void processInput() {
@@ -32,32 +32,37 @@ public class Game extends ApplicationAdapter {
         }
     }
 
-    @Override
+
     public void create() {
         batch = new SpriteBatch();
+        entityManager = new EntityManager();
+        player = entityManager.getPlayer().createTexture();
+        enemy = entityManager.getEnemy().createTexture();
         font = new BitmapFont();
         font.getData().setLineHeight(1);
         viewport = new FitViewport(800, 500);
     }
-//
+
 //    public void update() {
 //        this.entityMgr.getEntities().forEach(entity -> {
 //            entity.update();
-//            entity.render();
+//            entity.draw();
 //        });
 //    }
 
-    @Override
+
     public void render() {
         processInput();
 //        step();
         draw();
     }
 
-    @Override
+
     public void dispose() {
         batch.dispose();
         font.dispose();
+        player.dispose();
+        enemy.dispose();
     }
 
 
@@ -66,11 +71,11 @@ public class Game extends ApplicationAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
+        System.out.println(mousePosition);
         System.out.println("Position: (" + mousePosition.x + ", " + mousePosition.y + ")");
-        System.out.println(entityMgr.getPlayer().getPlayerTexture());
+
         batch.begin();
-        batch.draw(entityMgr.getPlayer().getPlayerTexture(), 100, 100, 100, 100);
-        batch.draw(entityMgr.getEnemy().getEnemyTexture(), 600, 100, 100, 100);
+        entityManager.getEntities().forEach(entity -> entity.draw(batch));
 
         // This is game logic and does not belong here
         if (mousePosition.x > 600 && mousePosition.x < 700 && mousePosition.y > 100 && mousePosition.y < 200) {
