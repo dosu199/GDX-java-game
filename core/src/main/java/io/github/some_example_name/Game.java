@@ -2,7 +2,6 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,11 +12,8 @@ public class Game {
     private final Vector2 mousePosition = new Vector2();
     private FitViewport viewport;
     private SpriteBatch batch;
-    private Texture player;
-    private Texture enemy;
     private BitmapFont font;
     private EntityManager entityManager;
-
 
     public void resize(int width, int height) {
         // Resizing will screw up our logic
@@ -32,12 +28,9 @@ public class Game {
         }
     }
 
-
     public void create() {
         batch = new SpriteBatch();
         entityManager = new EntityManager();
-        player = entityManager.getPlayer().createTexture();
-        enemy = entityManager.getEnemy().createTexture();
         font = new BitmapFont();
         font.getData().setLineHeight(1);
         viewport = new FitViewport(800, 500);
@@ -50,21 +43,16 @@ public class Game {
 //        });
 //    }
 
-
     public void render() {
         processInput();
 //        step();
         draw();
     }
 
-
     public void dispose() {
         batch.dispose();
         font.dispose();
-        player.dispose();
-        enemy.dispose();
     }
-
 
     public void draw() {
         ScreenUtils.clear(Color.BLACK);
