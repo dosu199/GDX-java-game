@@ -1,8 +1,8 @@
-package io.github.some_example_name;
+package io.github.game.util;
 
 public class V2 {
-     float x;
-     float y;
+    public float x;
+    public float y;
 
     public V2(float x, float y) {
         this.x = x;
