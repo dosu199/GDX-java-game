@@ -2,6 +2,7 @@ package io.github.game.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import io.github.game.util.V2;
+import io.github.game.Enums.EntityType;
 
 public class Player extends Entity {
     public Player(Texture texture, V2 p, V2 scale) {
