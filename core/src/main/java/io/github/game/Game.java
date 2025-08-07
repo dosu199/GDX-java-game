@@ -1,13 +1,12 @@
 package io.github.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.github.game.entity.EntityManager;
+import io.github.game.renderer.Render;
 
 public class Game {
     private final Vector2 mousePosition = new Vector2();
@@ -15,10 +14,10 @@ public class Game {
     private SpriteBatch batch;
     private BitmapFont font;
     private EntityManager entityManager;
+    private Render render;
 
     public void resize(int width, int height) {
-        // Resizing will screw up our logic
-        viewport.update(width, height, true);
+        render.resize(width, height);
     }
 
     public void processInput() {
@@ -35,42 +34,18 @@ public class Game {
         font = new BitmapFont();
         font.getData().setLineHeight(1);
         viewport = new FitViewport(800, 500);
+        render = new Render(viewport, batch, entityManager);
     }
-
-//    public void update() {
-//        this.entityMgr.getEntities().forEach(entity -> {
-//            entity.update();
-//            entity.draw();
-//        });
-//    }
 
     public void render() {
         processInput();
 //        step();
-        draw();
+        render.draw();
     }
 
     public void dispose() {
         batch.dispose();
         font.dispose();
-    }
-
-    public void draw() {
-        ScreenUtils.clear(Color.BLACK);
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-
-        System.out.println(mousePosition);
-        System.out.println("Position: (" + mousePosition.x + ", " + mousePosition.y + ")");
-
-        batch.begin();
-        entityManager.getEntities().forEach(entity -> entity.draw(batch));
-
-        // This is game logic and does not belong here
-        if (mousePosition.x > 600 && mousePosition.x < 700 && mousePosition.y > 100 && mousePosition.y < 200) {
-            font.draw(batch, "hit", mousePosition.x, mousePosition.y);
-        }
-
-        batch.end();
+        entityManager.getTextures().forEach((key, value) -> value.dispose());
     }
 }
