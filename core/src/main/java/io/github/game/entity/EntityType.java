@@ -1,3 +1,3 @@
-package io.github.game.Enums;
+package io.github.game.entity;
 
 public enum EntityType {PLAYER, ENEMY}

@@ -2,7 +2,6 @@ package io.github.game.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import io.github.game.Enums.EntityType;
 import io.github.game.util.V2;
 
 import java.util.ArrayList;

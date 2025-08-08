@@ -1,9 +1,6 @@
 package io.github.game.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.game.Enums.EntityType;
 import io.github.game.util.V2;
 
 public abstract class Entity {
