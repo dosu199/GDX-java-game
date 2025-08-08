@@ -4,17 +4,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import io.github.game.entity.EntityManager;
+import io.github.game.entity.Entity;
+import java.util.ArrayList;
 
 public class Render {
     private FitViewport viewport;
     private SpriteBatch batch;
-    private EntityManager entityManager;
 
-    public Render(FitViewport viewport, SpriteBatch batch, EntityManager entityManager) {
+    public Render(FitViewport viewport, SpriteBatch batch) {
         this.viewport = viewport;
         this.batch = batch;
-        this.entityManager = entityManager;
     }
 
 
@@ -23,14 +22,14 @@ public class Render {
         viewport.update(width, height, true);
     }
 
-    public void draw() {
+    public void draw(ArrayList<Entity> entities) {
         ScreenUtils.clear(Color.BLACK);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
 
         batch.begin();
-        entityManager.getEntities().forEach(entity ->
+        entities.forEach(entity ->
             batch.draw(entity.getTexture(), entity.getP().x, entity.getP().y, entity.getScale().x, entity.getScale().y));
 
         // This is game logic and does not belong here

@@ -34,13 +34,13 @@ public class Game {
         font = new BitmapFont();
         font.getData().setLineHeight(1);
         viewport = new FitViewport(800, 500);
-        render = new Render(viewport, batch, entityManager);
+        render = new Render(viewport, batch);
     }
 
     public void render() {
         processInput();
 //        step();
-        render.draw();
+        render.draw(entityManager.getAllEntities());
     }
 
     public void dispose() {

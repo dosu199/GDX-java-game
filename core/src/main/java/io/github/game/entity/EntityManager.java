@@ -37,7 +37,7 @@ public class EntityManager {
         return textures;
     }
 
-    public ArrayList<Entity> getEntities() {
+    public ArrayList<Entity> getAllEntities() {
         return entities;
     }
 }
