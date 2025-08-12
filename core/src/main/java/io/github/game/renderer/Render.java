@@ -16,7 +16,6 @@ public class Render {
         this.batch = batch;
     }
 
-
     public void resize(int width, int height) {
         // Resizing will screw up our logic
         viewport.update(width, height, true);
@@ -27,15 +26,9 @@ public class Render {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-
         batch.begin();
         entities.forEach(entity ->
             batch.draw(entity.getTexture(), entity.getP().x, entity.getP().y, entity.getScale().x, entity.getScale().y));
-
-        // This is game logic and does not belong here
-//        if (mousePosition.x > 600 && mousePosition.x < 700 && mousePosition.y > 100 && mousePosition.y < 200) {
-//            font.draw(batch, "hit", mousePosition.x, mousePosition.y);
-//        }
 
         batch.end();
     }
